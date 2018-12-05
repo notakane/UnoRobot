@@ -3,43 +3,43 @@ import numpy as np
 
 print "LOADING............"
 
-redCard = cv2.imread('red.jpg')
+redCard = cv2.imread('./CardColors/red.jpg')
 hsv = cv2.cvtColor(redCard, cv2.COLOR_BGR2HSV)
 redHist = cv2.calcHist([hsv],[0,1],None,[256,256],[0,256,0,256])
 
-yellowCard = cv2.imread('yellow.jpg')
+yellowCard = cv2.imread('./CardColors/yellow.jpg')
 hsv = cv2.cvtColor(yellowCard, cv2.COLOR_BGR2HSV)
 yellowHist = cv2.calcHist([hsv],[0,1],None,[256,256],[0,256,0,256])
 
-greenCard = cv2.imread('green.jpg')
+greenCard = cv2.imread('./CardColors/green.jpg')
 hsv = cv2.cvtColor(greenCard, cv2.COLOR_BGR2HSV)
 greenHist = cv2.calcHist([hsv],[0,1],None,[256,256],[0,256,0,256])
 
-blueCard = cv2.imread('blue.jpg')
+blueCard = cv2.imread('./CardColors/blue.jpg')
 hsv = cv2.cvtColor(blueCard, cv2.COLOR_BGR2HSV)
 blueHist = cv2.calcHist([hsv],[0,1],None,[256,256],[0,256,0,256])
 
-wildCard = cv2.imread('wild.jpg')
+wildCard = cv2.imread('./CardColors/wild.jpg')
 hsv = cv2.cvtColor(wildCard, cv2.COLOR_BGR2HSV)
 wildHist = cv2.calcHist([hsv],[0,1],None,[256,256],[0,256,0,256])
 
 histogramArray = [redHist, yellowHist, greenHist, blueHist, wildHist]
 
-zero = cv2.imread('0.jpg',0)
-one = cv2.imread('1.jpg',0)
-two = cv2.imread('2.jpg',0)
-three = cv2.imread('3.jpg',0)
-four = cv2.imread('4.jpg',0)
-five = cv2.imread('5.jpg',0)
-six = cv2.imread('6.jpg',0)
-seven = cv2.imread('7.jpg',0)
-eight = cv2.imread('8.jpg',0)
-nine = cv2.imread('9.jpg',0)
-reverse = cv2.imread('reverse.jpg',0)
-skip = cv2.imread('skip.jpg',0)
-draw2 = cv2.imread('draw2.jpg',0)
-draw4 = cv2.imread('draw4.jpg',0)
-wild = cv2.imread('wil.jpg',0)
+zero = cv2.imread('./CardTypes/0.jpg',0)
+one = cv2.imread('./CardTypes/1.jpg',0)
+two = cv2.imread('./CardTypes/2.jpg',0)
+three = cv2.imread('./CardTypes/3.jpg',0)
+four = cv2.imread('./CardTypes/4.jpg',0)
+five = cv2.imread('./CardTypes/5.jpg',0)
+six = cv2.imread('./CardTypes/6.jpg',0)
+seven = cv2.imread('./CardTypes/7.jpg',0)
+eight = cv2.imread('./CardTypes/8.jpg',0)
+nine = cv2.imread('./CardTypes/9.jpg',0)
+reverse = cv2.imread('./CardTypes/reverse.jpg',0)
+skip = cv2.imread('./CardTypes/skip.jpg',0)
+draw2 = cv2.imread('./CardTypes/draw2.jpg',0)
+draw4 = cv2.imread('./CardTypes/draw4.jpg',0)
+wild = cv2.imread('./CardTypes/wil.jpg',0)
 
 cardTypes = [zero, one, two, three, four, five,
 			 six, seven, eight, nine, reverse,
