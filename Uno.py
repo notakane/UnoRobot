@@ -1,7 +1,10 @@
 import cv2
 import numpy as np
+import time
 
-print "LOADING............"
+print "INITIALIZING......."
+
+handOfCards = []
 
 redCard = cv2.imread('./CardColors/red.jpg')
 hsv = cv2.cvtColor(redCard, cv2.COLOR_BGR2HSV)
@@ -54,14 +57,25 @@ for x in range(0,15):
 	kp2, des2 = sift.detectAndCompute(cardTypes[x], None)
 	typeFeatures.append(kp2)
 	typeFeatures.append(des2)
-	if x==5:
+	if x==7:
 		print "STILL LOADING......"
-	if x==10:
+	if x==13:
 		print "ALMOST THERE......."
 
 
 
 def drawCard():
+	# 1) physically pick up card
+	# 2) analyze card
+	# 3) in a the next available index in handOfCards[] (which corresponds to physical location),
+	# 		store card color and type
+
+	'''
+											handOfCards
+	index:		0			1			2			3			4			5			6		7
+	ID:		card1Color	card1Type	card2Color	card2Type	card3Color	card3Type ...
+	'''
+
 	print("drawn lol")
 
 
@@ -112,12 +126,16 @@ def findTypeMatch(frame):
 			numMatches = len(good)
 			matchIndex = x/2
 
-	print "This image matched to index #", matchIndex
+	if matchIndex == 13:
+		print"This image is of card type Draw 4"
+	else:
+		print "This image is of card type ", matchIndex
 
 def main():
-	cap = cv2.VideoCapture(1)
-
-
+	# Will only run once.
+	cap = cv2.VideoCapture(0)
+	time.sleep(5)
+	print "camera open!"
 
 	while(True):
 		if(cap.isOpened() == False):
@@ -127,7 +145,8 @@ def main():
 		ret, frame = cap.read()
 		if(ret == True):
 			#findColorMatch(frame)
-			findTypeMatch(frame)
+			#findTypeMatch(frame)
+			print ""
 				
 		cv2.imshow("Camera", frame)
 
