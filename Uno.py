@@ -1,10 +1,10 @@
 import cv2
-import numpy as np
 import time
 
 print "INITIALIZING......."
 
-handOfCards = []
+handOfCards = [("YELLOW",4), ("GREEN",0)]
+
 
 redCard = cv2.imread('./CardColors/red.jpg')
 hsv = cv2.cvtColor(redCard, cv2.COLOR_BGR2HSV)
@@ -62,6 +62,10 @@ for x in range(0,15):
 	if x==13:
 		print "ALMOST THERE......."
 
+# Will only run once.
+cap = cv2.VideoCapture(0)
+time.sleep(5)
+print "camera open!"
 
 
 def drawCard():
@@ -78,6 +82,14 @@ def drawCard():
 
 	print("drawn lol")
 
+def analyzeCard(frame):
+	cardcolor = findColorMatch(frame)
+	cardtype = findTypeMatch(frame)
+
+	card = (cardcolor, cardtype)
+
+	return card
+
 
 def findColorMatch(frame):
 	# Calculate color match
@@ -93,15 +105,15 @@ def findColorMatch(frame):
 			histogramIndex = x
 
 	if histogramIndex == 0:
-		print "Red card detected!"
+		return "RED"
 	elif histogramIndex == 1:
-		print "Yellow card detected!"
+		return "YELLOW"
 	elif histogramIndex == 2:
-		print "Green card detected!"
+		return "GREEN"
 	elif histogramIndex == 3:
-		print "Blue card detected!"
+		return "BLUE"
 	elif histogramIndex == 4:
-		print "Wild card detected!"
+		return "WILD"
 
 def findTypeMatch(frame):
 	grayFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -126,17 +138,9 @@ def findTypeMatch(frame):
 			numMatches = len(good)
 			matchIndex = x/2
 
-	if matchIndex == 13:
-		print"This image is of card type Draw 4"
-	else:
-		print "This image is of card type ", matchIndex
+	return matchIndex
 
 def main():
-	# Will only run once.
-	cap = cv2.VideoCapture(0)
-	time.sleep(5)
-	print "camera open!"
-
 	while(True):
 		if(cap.isOpened() == False):
 			print("Error!")
@@ -146,11 +150,29 @@ def main():
 		if(ret == True):
 			#findColorMatch(frame)
 			#findTypeMatch(frame)
-			print ""
-				
+
+			newCard = (findColorMatch(frame), findTypeMatch(frame))
+			print "Active card is ", newCard
+
+			for card in handOfCards:
+				if card[0] == newCard[0]:
+					'''
+					play this card
+					'''
+					print "play your", card, "card!"
+					break
+				elif card[1] == newCard[1]:
+					'''
+					play this card
+					'''
+					print "play your", card, "card!"
+					break
+
 		cv2.imshow("Camera", frame)
 
-		key = cv2.waitKey(1) & 0xFF
+
+		# You have 20 seconds to make your next move!
+		key = cv2.waitKey(2500) & 0xFF
 
 		if key == ord("q"):
 			break

@@ -4,7 +4,7 @@ import Tkinter
 
 # Set up the board
 print "Initializing Arduino..."
-board = Arduino('COM5')
+board = Arduino('/dev/ttyUSB0')
 
 # Iterator thread helps serial buffer not overflow
 iter = util.Iterator(board)
@@ -34,10 +34,12 @@ def close_claw():
     claw.write(0)
     time.sleep(.5)
     pin5.write(90)
+
 def open_claw():
     print "Opening the Claw"
     claw.write(90) #  Avoid going above 90, servo will whine
     time.sleep(.5)
+
 def draw_card():
     init_robot()
     pin5.write(0)
@@ -49,10 +51,13 @@ def draw_card():
 def rotate_base(a):
     print "Slider location: ", (rotate.get())
     base.write(a)
+
 def lift(a):
     left_arm.write(a)
+
 def reach(a):
     right_arm.write(a)
+
 def loc1():
     print "Drawing Card (soon)"
     base.write(20)
@@ -61,6 +66,7 @@ def loc1():
     time.sleep(.5)
     left_arm.write(65)
     time.sleep(.8)
+
 def loc2():
     base.write(55)
     time.sleep(.5)
@@ -68,6 +74,7 @@ def loc2():
     time.sleep(.5)
     left_arm.write(65)
     time.sleep(.5)
+
 def loc3():
     base.write(90)
     time.sleep(.5)
@@ -75,6 +82,7 @@ def loc3():
     time.sleep(.5)
     left_arm.write(65)
     time.sleep(.5)
+
 def loc4():
     base.write(110)
     time.sleep(.5)
@@ -82,6 +90,7 @@ def loc4():
     time.sleep(.5)
     left_arm.write(65)
     time.sleep(.5)
+
 def loc5():
     base.write(155)
     time.sleep(.5)
@@ -89,6 +98,7 @@ def loc5():
     time.sleep(.5)
     left_arm.write(70)
     time.sleep(.5)
+
 def loc6():
     base.write(180)
     time.sleep(.5)
@@ -96,30 +106,34 @@ def loc6():
     time.sleep(.5)
     left_arm.write(70)
     time.sleep(.5)
-
     
 def place_in_loc1():
     loc1()
     open_claw()
     init_robot()
+
 def place_in_loc2():
     loc2()
     open_claw()
     init_robot()
+
 def place_in_loc3():
     loc3()
     open_claw()
     init_robot()
+
 def place_in_loc4():
     loc4()
     open_claw()
     init_robot()
     return
+
 def place_in_loc5():
     loc5()
     open_claw()
     init_robot()
     return
+
 def place_in_loc6():
     loc6()
     open_claw()
